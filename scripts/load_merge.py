@@ -1,7 +1,7 @@
 import pandas as pd
 from pathlib import Path
 
-if __name__ == "main":
+if __name__ == "__main__":
 
     PATH = Path(__file__).parent.parent
 
