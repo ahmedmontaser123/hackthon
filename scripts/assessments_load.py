@@ -17,10 +17,10 @@ base = studentInfo.merge(studentRegistration, how='left', on=["id_student", "cod
 assessments = studentAssessment.merge(assessments, how='left', on='id_assessment')
 assessments['score'] = (assessments['score']/100) * assessments['weight']
 
-scores = assessments.groupby(['code_module','code_presentation','id_student'])['score'].sum().reset_index()
+scores = assessments.groupby(['code_module','code_presentation','id_student']).agg(score = ("score","sum"),is_banked = ("is_banked","max")).reset_index()
 
 
-final_df = base.merge(scores, how='left', on=['id_student', 'code_module', 'code_presentation'])
+final_df = base.merge(scores, how='inner', on=['id_student', 'code_module', 'code_presentation'])
 
 merged = final_df.copy()
 
